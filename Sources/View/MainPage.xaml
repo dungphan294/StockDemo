@@ -20,25 +20,36 @@
         <CollectionView Grid.ColumnSpan="5" ItemsSource="{Binding Stocks}" SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <VerticalStackLayout>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
                         <Label Text="{Binding MetaData.Symbol}"/>
                         <Label Text="{Binding MetaData.Interval}"/>
-                        <Label Text="{Binding MetaData.LastRefreshed}"/>
-                        <Label Text="{Binding MetaData.TimeZone}"/>
-                        <Label Text="{Binding TimeSeries[0].Date}"/>
-                        <Label Text="{Binding TimeSeries[0].Open}"/>
                         <Label Text="{Binding TimeSeries[0].High}"/>
                         <Label Text="{Binding TimeSeries[0].Low}"/>
                         <Label Text="{Binding TimeSeries[0].Close}"/>
-                        <VerticalStackLayout.GestureRecognizers>
+                        <Label Text="{Binding CompanyInfo.Symbol}"/>
+                        <Label Text="{Binding CompanyInfo.Symbol}"/>
+                        <Label Text="{Binding CompanyInfo.AssetType}"/>
+                        <Label Text="{Binding CompanyInfo.Name}"/>
+                        <Label Text="{Binding CompanyInfo.Description}"/>
+                        <Label Text="{Binding CompanyInfo.CIK}"/>
+                        <Label Text="{Binding CompanyInfo.Exchange}"/>
+                        <Grid.GestureRecognizers>
                             <TapGestureRecognizer CommandParameter="{Binding .}"
-                      Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:StocksViewModel}}, Path=GoToStockDetailAsync}"/>
-                        </VerticalStackLayout.GestureRecognizers>
-                    </VerticalStackLayout>
+                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:StocksViewModel}}, Path=GoToDetailCommand}"/>
+                        </Grid.GestureRecognizers>
+                        
+                    </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <Button Text="Get News" Grid.Row="1" Margin="8" Command="{Binding GetNewsCommand}" IsEnabled="{Binding IsNotBusy}"/>
         <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" HorizontalOptions="FillAndExpand"  VerticalOptions="CenterAndExpand" Grid.RowSpan="2" Grid.ColumnSpan="5"/>
     </Grid>
 </ContentPage>

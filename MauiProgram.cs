@@ -3,6 +3,7 @@ using StockDemo.Sources.Services;
 using StockDemo.Sources.View;
 using StockDemo.Sources.ViewModel;
 using StockDemo.Sources.ViewModels;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace StockDemo
 {
@@ -12,6 +13,7 @@ namespace StockDemo
         {
             var builder = MauiApp.CreateBuilder();
             builder
+                .UseSkiaSharp(true)
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
                 {
@@ -31,6 +33,7 @@ namespace StockDemo
             builder.Services.AddSingleton<AboutPage>();
             
             builder.Services.AddSingleton<StocksViewModel>();
+            builder.Services.AddSingleton<StockDetailViewModel>();
             builder.Services.AddSingleton<NewsViewModel>();
             builder.Services.AddTransient<NewsDetailViewModel>();
             builder.Services.AddSingleton<AboutViewModel>();

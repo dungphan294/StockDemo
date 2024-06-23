@@ -15,17 +15,17 @@ public partial class StocksViewModel: BaseViewModel
         Task.Run(async () => await GetStockAsync());
     }
 
-    //[RelayCommand]
-    //async Task GoToStockDetailAsync(Stock stock)
-    //{
-    //    if (stock is null)
-    //        return;
-    //    await Shell.Current.GoToAsync($"{nameof(View.StockDetailPage)}", true,
-    //        new Dictionary<string, object>
-    //        {
-    //            {"Stock", stock}
-    //        });
-    //}
+    [RelayCommand]
+    async Task GoToDetailAsync(Stock detail)
+    {
+        if (detail is null)
+            return;
+        await Shell.Current.GoToAsync($"{nameof(View.StockDetailPage)}", true,
+            new Dictionary<string, object>
+            {
+                {"StockDetail", detail}
+            });
+    }
 
     [RelayCommand]
     async Task GetStockAsync()
