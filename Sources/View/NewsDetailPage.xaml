@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:StockDemo.Sources.ViewModel"
+             x:Class="StockDemo.Sources.View.NewsDetailPage"
+             Title="NewsDetailPage">
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="20">
+            <Label Text="{Binding FeedItem.Title}" FontSize="Large" FontAttributes="Bold" />
+            <Label Text="{Binding FeedItem.Source}" FontSize="Medium" />
+            <Label Text="{Binding FeedItem.TimePublished}" FontSize="Small" />
+            <Image Source="{Binding FeedItem.BannerImage}" />
+            <Label Text="{Binding FeedItem.Summary}" FontSize="Medium" />
+            <Button Text="Read Full Article"
+                FontSize="Medium"
+                TextColor="White"
+                CornerRadius="5"
+                Command="{Binding OpenUrlCommand}"
+                CommandParameter="{Binding FeedItem.Url}"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="StockDemo.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:view="clr-namespace:StockDemo.Sources.View"
+    Shell.FlyoutBehavior="Disabled"
+    Title="StockDemo">
+
+    <TabBar>
+        <ShellContent
+      Title="Home"
+      ContentTemplate="{DataTemplate view:MainPage}"
+      Route="MainPage"/>
+        <ShellContent
+Title="News"
+ContentTemplate="{DataTemplate view:NewsPage}"
+Route="NewsPage"/>
+        <ShellContent
+Title="About"
+ContentTemplate="{DataTemplate view:AboutPage}"
+Route="AboutPage"/>
+    </TabBar>
+
+</Shell>

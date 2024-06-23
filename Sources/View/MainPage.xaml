@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:StockDemo.Sources.ViewModel"
+             x:Class="StockDemo.Sources.View.MainPage"
+             Title="{Binding Title}"
+             BackgroundColor="LightGoldenrodYellow">
+    <Grid ColumnSpacing="5"  RowSpacing="5" Margin="20" BackgroundColor="LightGoldenrodYellow">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <CollectionView Grid.ColumnSpan="5" ItemsSource="{Binding Stocks}" SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <VerticalStackLayout>
+                        <Label Text="{Binding MetaData.Symbol}"/>
+                        <Label Text="{Binding MetaData.Interval}"/>
+                        <Label Text="{Binding MetaData.LastRefreshed}"/>
+                        <Label Text="{Binding MetaData.TimeZone}"/>
+                        <Label Text="{Binding TimeSeries[0].Date}"/>
+                        <Label Text="{Binding TimeSeries[0].Open}"/>
+                        <Label Text="{Binding TimeSeries[0].High}"/>
+                        <Label Text="{Binding TimeSeries[0].Low}"/>
+                        <Label Text="{Binding TimeSeries[0].Close}"/>
+                        <VerticalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer CommandParameter="{Binding .}"
+                      Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:StocksViewModel}}, Path=GoToStockDetailAsync}"/>
+                        </VerticalStackLayout.GestureRecognizers>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Button Text="Get News" Grid.Row="1" Margin="8" Command="{Binding GetNewsCommand}" IsEnabled="{Binding IsNotBusy}"/>
+        <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" HorizontalOptions="FillAndExpand"  VerticalOptions="CenterAndExpand" Grid.RowSpan="2" Grid.ColumnSpan="5"/>
+    </Grid>
+</ContentPage>
