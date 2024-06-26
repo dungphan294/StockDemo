@@ -22,8 +22,6 @@
     Series="{Binding Series}"
     XAxes="{Binding XAxes}"
     ZoomMode="Both"
-                            UpdaterThrottler="00:00:00.500"
-                           AnimationsSpeed="00:00:01"
     />
             <Border Grid.Column="3" Grid.ColumnSpan="2" Padding="20" Margin="20">
                 <Border.StrokeShape>

@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System;
+using Microsoft.VisualBasic;
 
 namespace StockDemo.Sources.Services;
 
@@ -25,14 +26,77 @@ public class AlphaVantageService : IAlphaVantageService
     {
         if (StockList.Count > 0)
             return StockList;
-        IList<string> listSymbol = new List<string>() { "IBM", "IBM", "IBM", "IBM", "IBM" };
-        //IList<string> listSymbol = new List<string>() { "IBM", "AAPL", "AMZN", "TSLA", "MSFT" };
+        IList<string> listSymbol = new List<string>() { "AAPL", "AMZN", "TSLA", "MSFT", "NFLX", "IBM" };
         foreach (var item in listSymbol)
         {
             Symbol = item;
+            APIKey = "96N7QO35IE3PTGLS";
+            Interval = 60;
             StockList.Add(await GetStockData());
         }
         return StockList;
+    }
+
+    public async Task<Stock> BackupStockData()
+    {
+        var urlData = $"https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=demo";
+        var urlAbout = $"https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=demo";
+        var responseData = await _httpClient.GetStringAsync(urlData);
+        var responseAbout = await _httpClient.GetStringAsync(urlAbout);
+        var rootData = JsonDocument.Parse(responseData).RootElement;
+        var rootAbout = JsonDocument.Parse(responseAbout).RootElement;
+        var stock_demo = new Stock
+        {
+            MetaData = new MetaData(),
+            TimeSeries = new List<StockPrice>(),
+            CompanyInfo = new CompanyInfo()
+        };
+
+        // ABOUT
+        stock_demo.CompanyInfo.Symbol = rootAbout.GetProperty("Symbol").GetString();
+        stock_demo.CompanyInfo.AssetType = rootAbout.GetProperty("AssetType").GetString();
+        stock_demo.CompanyInfo.Name = rootAbout.GetProperty("Name").GetString();
+        stock_demo.CompanyInfo.Description = rootAbout.GetProperty("Description").GetString();
+        stock_demo.CompanyInfo.CIK = rootAbout.GetProperty("CIK").GetString();
+        stock_demo.CompanyInfo.Exchange = rootAbout.GetProperty("Exchange").GetString();
+        stock_demo.CompanyInfo.Currency = rootAbout.GetProperty("Currency").ToString();
+        stock_demo.CompanyInfo.Country = rootAbout.GetProperty("Country").ToString();
+        stock_demo.CompanyInfo.Sector = rootAbout.GetProperty("Sector").GetString();
+        stock_demo.CompanyInfo.Industry = rootAbout.GetProperty("Industry").GetString();
+        stock_demo.CompanyInfo.Address = rootAbout.GetProperty("Address").GetString();
+
+        // META DATA
+        if (rootData.TryGetProperty($"Meta Data", out var metaDataNodeDemo))
+        {
+            stock_demo.MetaData.Information = metaDataNodeDemo.GetProperty("1. Information").GetString();
+            stock_demo.MetaData.Symbol = metaDataNodeDemo.GetProperty("2. Symbol").GetString();
+            stock_demo.MetaData.LastRefreshed = metaDataNodeDemo.GetProperty("3. Last Refreshed").GetString();
+            stock_demo.MetaData.Interval = metaDataNodeDemo.GetProperty("4. Interval").GetString();
+            stock_demo.MetaData.OutputSize = metaDataNodeDemo.GetProperty("5. Output Size").GetString();
+            stock_demo.MetaData.TimeZone = metaDataNodeDemo.GetProperty("6. Time Zone").GetString();
+        }
+
+        // TIME SERIES
+        if (rootData.TryGetProperty($"Time Series (5min)", out var timeSeriesNodeDemo))
+        {
+            foreach (var item in timeSeriesNodeDemo.EnumerateObject())
+            {
+                var timestamp = DateTime.Parse(item.Name);
+                var stockData = item.Value;
+
+                var stockPrice = new StockPrice
+                {
+                    Date = timestamp,
+                    Open = Convert.ToDecimal(stockData.GetProperty("1. open").ToString()),
+                    High = Convert.ToDecimal(stockData.GetProperty("2. high").ToString()),
+                    Low = Convert.ToDecimal(stockData.GetProperty("3. low").ToString()),
+                    Close = Convert.ToDecimal(stockData.GetProperty("4. close").ToString())
+                };
+
+                stock_demo.TimeSeries.Add(stockPrice);
+            }
+        }
+        return stock_demo;
     }
     public async Task<Stock> GetStockData()
     {
@@ -43,13 +107,18 @@ public class AlphaVantageService : IAlphaVantageService
         var rootData = JsonDocument.Parse(responseData).RootElement;
         var rootAbout = JsonDocument.Parse(responseAbout).RootElement;
 
-
         var stock = new Stock
         {
             MetaData = new MetaData(),
             TimeSeries = new List<StockPrice>(),
             CompanyInfo = new CompanyInfo()
         };
+        // LIMIT REQUEST
+        if (rootData.TryGetProperty($"Information", out var limitRequest) || rootData.TryGetProperty($"Information", out var limitRequest2))
+        {
+            stock = await BackupStockData();
+            return stock;
+        }
 
         // ABOUT
         stock.CompanyInfo.Symbol = rootAbout.GetProperty("Symbol").GetString();

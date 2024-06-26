@@ -5,94 +5,120 @@
              x:Class="StockDemo.Sources.View.MainPage"
              Title="{Binding Title}"
             >
-    <Grid ColumnSpacing="5" RowSpacing="5" Margin="20" >
-        <Grid.RowDefinitions>
-            <!--label-->
-            <RowDefinition Height="Auto"/>
-            <!--list-->
-            <RowDefinition Height="Auto"/>
-            <!--label-->
-            <RowDefinition Height="Auto"/>
-            <!--table header-->
-            <RowDefinition Height="Auto"/>
-            <!--table data-->
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+    <ScrollView Orientation="Vertical">
 
-        <!-- Dung change -->
-        <Label Text="Stocks that you are interested in!" Grid.Row="0" Grid.ColumnSpan="5" FontSize="Title" HorizontalTextAlignment="Center"/>
-        <CollectionView  Grid.Row="1" Grid.ColumnSpan="5" ItemsSource="{Binding Stocks}" HorizontalOptions="CenterAndExpand">
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Horizontal" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Border Padding="10" Margin="50">
-                        <StackLayout  Spacing="5" Margin="10">
-                            <Label HorizontalOptions="Center" VerticalOptions="Center">
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span Text="{Binding MetaData.Symbol}" /> 
-                                        <Span Text="{Binding TimeSeries[0].Open}"></Span>
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
-                            <!--<Button  Grid.Column="0" Text="{Binding MetaData.Symbol}" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Olive"/>
-                            <Label  Grid.Column="0" Text="{Binding TimeSeries[0].Open}" HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="Olive"/>-->
-                            <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:StocksViewModel}}, Path=GoToDetailCommand}" />
-                            </StackLayout.GestureRecognizers>
-                        </StackLayout>
-                    </Border>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+        <Grid ColumnSpacing="10" RowSpacing="5" Margin="30" Padding="20" >
+            <Grid.RowDefinitions>
+                <!--label-->
+                <RowDefinition Height="Auto"/>
+                <!--list-->
+                <RowDefinition Height="Auto"/>
+                <!--label-->
+                <RowDefinition Height="Auto"/>
+                <!--table header-->
+                <RowDefinition Height="Auto"/>
+                <!--table data-->
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
-        <Label Text="More info about them..." Grid.Row="2" Grid.ColumnSpan="5" FontSize="Title" />
-        
-        <!-- Column Headers -->
-        <Label  Grid.Row="3" Grid.Column="0"  Text="Symbol" FontAttributes="Bold"   HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" />
-        <Label Grid.Row="3" Grid.Column="1" Text="Open" FontAttributes="Bold" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" />
-        <Label Grid.Row="3" Grid.Column="2" Text="High" FontAttributes="Bold" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" />
-        <Label Grid.Row="3" Grid.Column="3" Text="Low" FontAttributes="Bold" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" />
-        <Label Grid.Row="3" Grid.Column="4" Text="Close" FontAttributes="Bold" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" />
-        
-        <!-- Collection View -->
-        <CollectionView Grid.Row="4" Grid.ColumnSpan="5" ItemsSource="{Binding Stocks}" SelectionMode="None">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid Padding="10" Margin="10">
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Label  Grid.Column="0" Text="{Binding MetaData.Symbol}" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Italic"/>
-                        <Label Grid.Column="1" Text="{Binding TimeSeries[0].Open}" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Italic"/>
-                        <Label Grid.Column="2" Text="{Binding TimeSeries[0].High}" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Italic"/>
-                        <Label Grid.Column="3" Text="{Binding TimeSeries[0].Low}" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Italic"/>
-                        <Label Grid.Column="4" Text="{Binding TimeSeries[0].Close}" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Italic"/>
-                        <Grid.GestureRecognizers>
-                            <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:StocksViewModel}}, Path=GoToDetailCommand}" />
-                        </Grid.GestureRecognizers>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            <!-- Dung change -->
+            <Label Text="Stocks that you might be interested in!" Grid.Row="0" Grid.ColumnSpan="5" FontSize="Title" HorizontalTextAlignment="Center"/>
+            <CollectionView Margin="20" Grid.Row="1" Grid.ColumnSpan="5" ItemsSource="{Binding Stocks}" HorizontalOptions="CenterAndExpand">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border 
+StrokeThickness="4"
+Padding="16,8"
+HorizontalOptions="Center">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="20" />
+                            </Border.StrokeShape>
 
-        <!-- Activity Indicator -->
-        <ActivityIndicator Grid.Row="2" Grid.RowSpan="2" Grid.ColumnSpan="4" IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" />
-    </Grid>
+                            <VerticalStackLayout  Margin="10">
+                                <Label Text="{Binding MetaData.Symbol}"  HorizontalOptions="Start" VerticalOptions="Center" FontSize="20"/>
+                                <Label Text="{Binding TimeSeries[0].Open}"  HorizontalOptions="Start" VerticalOptions="Center" FontSize="20"/>
+                                <VerticalStackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:StocksViewModel}}, Path=GoToDetailCommand}" />
+                                </VerticalStackLayout.GestureRecognizers>
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Text="More Information" Grid.Row="2" Grid.ColumnSpan="5" FontSize="Title" />
+            <Border  Grid.Row="3" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="5"
+StrokeThickness="4"
+Padding="16,8"
+HorizontalOptions="Center">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20" />
+                </Border.StrokeShape>
+                <Grid RowSpacing="10" ColumnSpacing="5" Padding="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <!-- Column Headers -->
+                    <Label  Grid.Row="0" Grid.Column="0"  Text="Symbol" FontAttributes="Bold" FontSize="Medium"  HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" />
+                    <Label Grid.Row="0" Grid.Column="1" Text="Open" FontAttributes="Bold"  FontSize="Medium" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" />
+                    <Label Grid.Row="0" Grid.Column="2" Text="High" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" />
+                    <Label Grid.Row="0" Grid.Column="3" Text="Low" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" />
+                    <Label Grid.Row="0" Grid.Column="4" Text="Close" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" />
+                    <BoxView HeightRequest="2" Grid.Row="1" Grid.ColumnSpan="5" />
+                    <!-- Collection View -->
+                    <CollectionView Grid.Row="3" Grid.ColumnSpan="5" ItemsSource="{Binding Stocks}" SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="10" Margin="10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button  Grid.Column="0" Text="{Binding MetaData.Symbol}" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold">
+                                        <Button.GestureRecognizers>
+                                            <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:StocksViewModel}}, Path=GoToDetailCommand}" />
+                                        </Button.GestureRecognizers>
+                                    </Button>
+                                    <Label Grid.Column="1" Text="{Binding TimeSeries[0].Open}" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="None"/>
+                                    <Label Grid.Column="2" Text="{Binding TimeSeries[0].High}" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="None"/>
+                                    <Label Grid.Column="3" Text="{Binding TimeSeries[0].Low}" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="None"/>
+                                    <Label Grid.Column="4" Text="{Binding TimeSeries[0].Close}" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="None"/>
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:StocksViewModel}}, Path=GoToDetailCommand}" />
+                                    </Grid.GestureRecognizers>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+            </Border>
+            <!-- Activity Indicator -->
+            <ActivityIndicator Grid.Row="2" Grid.RowSpan="2" Grid.ColumnSpan="4" IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" />
+        </Grid>
+    </ScrollView>
 </ContentPage>

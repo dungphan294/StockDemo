@@ -51,14 +51,12 @@ public partial class StockDetailViewModel : BaseViewModel
             
         new Axis
                 {
-                    LabelsRotation = 15,
-                    LabelsPaint = new SolidColorPaint(new SKColor(25, 118, 210)),
+                    LabelsPaint = new SolidColorPaint(SKColors.Gray),
                     Labels = value.TimeSeries
                         .Select(x => x.Date.ToString("HH:mm"))
                         .ToArray()
                 }
             };
-
         OnPropertyChanged(nameof(Series));
         OnPropertyChanged(nameof(XAxes));
     }
