@@ -23,7 +23,7 @@ The App is best viewed as a Windows application. It is
 compatible with Android devices but a smooth user experience
 cannot be guaranteed.
 
-Furthermore, this App is built for Windows in light mode. Please ensure it is
+Furthermore, this App is built for Windows in dark mode. Please ensure it is
 enabled for the best experience.
 
 ## Precautions
