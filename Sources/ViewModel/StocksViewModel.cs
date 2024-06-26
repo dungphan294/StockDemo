@@ -23,7 +23,7 @@ public partial class StocksViewModel: BaseViewModel
         await Shell.Current.GoToAsync($"{nameof(View.StockDetailPage)}", true,
             new Dictionary<string, object>
             {
-                {"StockDetail", detail}
+                {"StockDetail", detail},
             });
     }
 

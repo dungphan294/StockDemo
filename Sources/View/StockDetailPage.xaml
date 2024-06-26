@@ -5,22 +5,78 @@
              xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
              x:Class="StockDemo.Sources.View.StockDetailPage"
              Title="StockDetailPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="{Binding StockDetail.MetaData.Symbol}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Grid>
+        <Grid RowSpacing="10" ColumnSpacing="10" Margin="20" Padding="5">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+            <RowDefinition />
+            <RowDefinition/>
             </Grid.RowDefinitions>
-
-            <lvc:CartesianChart
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <lvc:CartesianChart Grid.Row="0" Grid.Column="0"
                 Series="{Binding Series}"
                 XAxes="{Binding XAxes}"
             ZoomMode="X">
             </lvc:CartesianChart>
-
+            <VerticalStackLayout Grid.Row="1"  >
+                <Border Padding="20">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="15" />
+                    </Border.StrokeShape>
+                    <VerticalStackLayout>
+                        <Label 
+                        Text="{Binding StockDetail.CompanyInfo.Symbol}"
+                        VerticalOptions="Center" 
+                        HorizontalOptions="Start"
+                        FontSize="Large"
+                        FontAttributes="Bold" />
+                        <Label 
+                        Text="{Binding StockDetail.CompanyInfo.AssetType}"
+                        VerticalOptions="Center" 
+                        HorizontalOptions="Start"
+                        />
+                        <Label 
+                        Text="{Binding StockDetail.CompanyInfo.Name}"
+                        VerticalOptions="Center" 
+                        HorizontalOptions="Start"
+                         />
+                        <Label 
+                        Text="{Binding StockDetail.CompanyInfo.Description}"
+                        VerticalOptions="Center" 
+                        HorizontalOptions="Start"
+                        />
+                        <Label 
+ Text="{Binding StockDetail.CompanyInfo.CIK}"
+ VerticalOptions="Center" 
+ HorizontalOptions="Start"
+ />
+                        <Label 
+Text="{Binding StockDetail.CompanyInfo.Currency}"
+VerticalOptions="Center" 
+HorizontalOptions="Start"
+/>
+                        <Label 
+Text="{Binding StockDetail.CompanyInfo.Country}"
+VerticalOptions="Center" 
+HorizontalOptions="Start"
+/>
+                        <Label 
+Text="{Binding StockDetail.CompanyInfo.Sector}"
+VerticalOptions="Center" 
+HorizontalOptions="Start"
+/>
+                        <Label 
+Text="{Binding StockDetail.CompanyInfo.Industry}"
+VerticalOptions="Center" 
+HorizontalOptions="Start"
+/>
+                        <Label 
+Text="{Binding StockDetail.CompanyInfo.Address}"
+VerticalOptions="Center" 
+HorizontalOptions="Start"
+/>
+                    </VerticalStackLayout>
+                </Border>
+            </VerticalStackLayout>
         </Grid>
-    </VerticalStackLayout>
 </ContentPage>
