@@ -27,7 +27,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- Dung change -->
-        <Label Text="Stock that you list interested!" Grid.Row="0" Grid.ColumnSpan="5" FontSize="Title" />
+        <Label Text="Stocks that you are interested in!" Grid.Row="0" Grid.ColumnSpan="5" FontSize="Title" HorizontalTextAlignment="Center"/>
         <CollectionView  Grid.Row="1" Grid.ColumnSpan="5" ItemsSource="{Binding Stocks}" HorizontalOptions="CenterAndExpand">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Horizontal" />
@@ -36,8 +36,16 @@
                 <DataTemplate>
                     <Border Padding="10" Margin="50">
                         <StackLayout  Spacing="5" Margin="10">
-                            <Label  Grid.Column="0" Text="{Binding MetaData.Symbol}" HorizontalOptions="Center" VerticalOptions="Center" />
-                            <Label  Grid.Column="0" Text="{Binding TimeSeries[0].Open}" HorizontalOptions="Start" VerticalOptions="Center" />
+                            <Label HorizontalOptions="Center" VerticalOptions="Center">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding MetaData.Symbol}" /> 
+                                        <Span Text="{Binding TimeSeries[0].Open}"></Span>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <!--<Button  Grid.Column="0" Text="{Binding MetaData.Symbol}" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Olive"/>
+                            <Label  Grid.Column="0" Text="{Binding TimeSeries[0].Open}" HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="Olive"/>-->
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:StocksViewModel}}, Path=GoToDetailCommand}" />
                             </StackLayout.GestureRecognizers>
@@ -47,18 +55,20 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <Label Text="List Stock" Grid.Row="2" Grid.ColumnSpan="5" FontSize="Title" />
+        <Label Text="More info about them..." Grid.Row="2" Grid.ColumnSpan="5" FontSize="Title" />
+        
         <!-- Column Headers -->
         <Label  Grid.Row="3" Grid.Column="0"  Text="Symbol" FontAttributes="Bold"   HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" />
         <Label Grid.Row="3" Grid.Column="1" Text="Open" FontAttributes="Bold" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" />
         <Label Grid.Row="3" Grid.Column="2" Text="High" FontAttributes="Bold" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" />
         <Label Grid.Row="3" Grid.Column="3" Text="Low" FontAttributes="Bold" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" />
         <Label Grid.Row="3" Grid.Column="4" Text="Close" FontAttributes="Bold" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" />
+        
         <!-- Collection View -->
         <CollectionView Grid.Row="4" Grid.ColumnSpan="5" ItemsSource="{Binding Stocks}" SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid Padding="10" Margin="10">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
@@ -69,11 +79,11 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Label  Grid.Column="0" Text="{Binding MetaData.Symbol}" HorizontalOptions="Center" VerticalOptions="Center" />
-                        <Label Grid.Column="1" Text="{Binding TimeSeries[0].Open}" HorizontalOptions="Center" VerticalOptions="Center" />
-                        <Label Grid.Column="2" Text="{Binding TimeSeries[0].High}" HorizontalOptions="Center" VerticalOptions="Center" />
-                        <Label Grid.Column="3" Text="{Binding TimeSeries[0].Low}" HorizontalOptions="Center" VerticalOptions="Center" />
-                        <Label Grid.Column="4" Text="{Binding TimeSeries[0].Close}" HorizontalOptions="Center" VerticalOptions="Center" />
+                        <Label  Grid.Column="0" Text="{Binding MetaData.Symbol}" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Italic"/>
+                        <Label Grid.Column="1" Text="{Binding TimeSeries[0].Open}" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Italic"/>
+                        <Label Grid.Column="2" Text="{Binding TimeSeries[0].High}" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Italic"/>
+                        <Label Grid.Column="3" Text="{Binding TimeSeries[0].Low}" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Italic"/>
+                        <Label Grid.Column="4" Text="{Binding TimeSeries[0].Close}" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Italic"/>
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:StocksViewModel}}, Path=GoToDetailCommand}" />
                         </Grid.GestureRecognizers>
