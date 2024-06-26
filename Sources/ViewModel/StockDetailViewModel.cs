@@ -4,6 +4,9 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using LiveChartsCore;
 using LiveChartsCore.Defaults;
 using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore.SkiaSharpView.Painting.ImageFilters;
+using LiveChartsCore.SkiaSharpView.Painting;
+using SkiaSharp;
 
 
 namespace StockDemo.Sources.ViewModel;
@@ -19,7 +22,6 @@ public partial class StockDetailViewModel : BaseViewModel
         Series = Array.Empty<ISeries>();
         XAxes = Array.Empty<Axis>();
     }
-
     partial void OnStockDetailChanged(Stock value)
     {
         if (value == null || value.TimeSeries == null || !value.TimeSeries.Any())
@@ -46,9 +48,11 @@ public partial class StockDetailViewModel : BaseViewModel
 
         XAxes = new[]
         {
-                new Axis
+            
+        new Axis
                 {
                     LabelsRotation = 15,
+                    LabelsPaint = new SolidColorPaint(new SKColor(25, 118, 210)),
                     Labels = value.TimeSeries
                         .Select(x => x.Date.ToString("HH:mm"))
                         .ToArray()

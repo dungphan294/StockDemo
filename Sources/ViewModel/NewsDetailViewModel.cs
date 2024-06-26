@@ -5,6 +5,7 @@ public partial class NewsDetailViewModel : BaseViewModel
 {
     public NewsDetailViewModel()
     { 
+        Title = "News Detail";
     }
 
     [ObservableProperty]

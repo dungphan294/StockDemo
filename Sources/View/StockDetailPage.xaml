@@ -4,16 +4,28 @@
              xmlns:viewModel="clr-namespace:StockDemo.Sources.ViewModel"
              xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
              x:Class="StockDemo.Sources.View.StockDetailPage"
-             Title="StockDetailPage">
-    <ScrollView>
-        <VerticalStackLayout Padding="20">
-            <lvc:CartesianChart
-                Series="{Binding Series}"
-                XAxes="{Binding XAxes}"
-                ZoomMode="X"
-                HeightRequest="300" />
+             Title="{Binding Title}">
+    <ScrollView Orientation="Vertical">
 
-            <Border Padding="20" Margin="0,10,0,0">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <lvc:CartesianChart Grid.Column="0" Grid.ColumnSpan="3"
+    Series="{Binding Series}"
+    XAxes="{Binding XAxes}"
+    ZoomMode="Both"
+                            UpdaterThrottler="00:00:00.500"
+                           AnimationsSpeed="00:00:01"
+    />
+            <Border Grid.Column="3" Grid.ColumnSpan="2" Padding="20" Margin="20">
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="15" />
                 </Border.StrokeShape>
@@ -24,7 +36,7 @@
                         HorizontalOptions="Start"
                         FontSize="Large"
                         FontAttributes="Bold" />
-                    <Slider x:Name="slider"/>
+                    <BoxView HeightRequest="2" />
                     <Label VerticalOptions="Center" HorizontalOptions="Start">
                         <Label.FormattedText>
                             <FormattedString>
@@ -91,6 +103,6 @@
                     </Label>
                 </VerticalStackLayout>
             </Border>
-        </VerticalStackLayout>
+        </Grid>
     </ScrollView>
 </ContentPage>

@@ -1,4 +1,7 @@
-﻿namespace StockDemo.Sources.Services;
+﻿using System.Globalization;
+using System;
+
+namespace StockDemo.Sources.Services;
 
 public class AlphaVantageService : IAlphaVantageService
 {
@@ -17,10 +20,22 @@ public class AlphaVantageService : IAlphaVantageService
 
     List<Stock> StockList = new();
     List<News> NewsList = new();
-    
-    public async Task<List<Stock>> GetStockData()
+
+    public async Task<List<Stock>> GetAllStockData()
     {
-        if (StockList.Count > 0) return StockList;
+        if (StockList.Count > 0)
+            return StockList;
+        IList<string> listSymbol = new List<string>() { "IBM", "IBM", "IBM", "IBM", "IBM" };
+        //IList<string> listSymbol = new List<string>() { "IBM", "AAPL", "AMZN", "TSLA", "MSFT" };
+        foreach (var item in listSymbol)
+        {
+            Symbol = item;
+            StockList.Add(await GetStockData());
+        }
+        return StockList;
+    }
+    public async Task<Stock> GetStockData()
+    {
         string urlData = $"https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={Symbol}&interval={Interval}min&apikey={APIKey}";
         string urlAbout = $"https://www.alphavantage.co/query?function=OVERVIEW&symbol={Symbol}&apikey={APIKey}";
         var responseData = await _httpClient.GetStringAsync(urlData);
@@ -79,15 +94,14 @@ public class AlphaVantageService : IAlphaVantageService
 
                 stock.TimeSeries.Add(stockPrice);
             }
-            StockList.Add(stock);
         }
-        return StockList;
+        return stock;
     }
 
 
     public async Task<List<News>> GetNews()
     {
-        if (NewsList?.Count > 0)
+        if (NewsList.Count > 0)
             return NewsList;
         var url = "https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo";
         var response = await _httpClient.GetStringAsync(url);
@@ -105,11 +119,15 @@ public class AlphaVantageService : IAlphaVantageService
         {
             foreach (var item in feed.EnumerateArray())
             {
+                string dateString = item.GetProperty("time_published").GetString();
+                string format = "yyyyMMdd'T'HHmmss";
+                // Parse the date and time without changing the hours
+                DateTime dateTime = DateTime.ParseExact(dateString, format, CultureInfo.InvariantCulture);
                 var feedItem = new FeedItem
                 {
                     Title = item.GetProperty("title").GetString(),
                     Url = item.GetProperty("url").GetString(),
-                    TimePublished = item.GetProperty("time_published").GetString(),
+                    TimePublished = dateTime.ToString(),
                     Author = item.GetProperty("authors").EnumerateArray().Select(author => author.GetString()).ToList(),
                     Summary = item.GetProperty("summary").GetString(),
                     BannerImage = item.GetProperty("banner_image").GetString(),

@@ -3,13 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModel="clr-namespace:StockDemo.Sources.ViewModel"
              x:Class="StockDemo.Sources.View.NewsDetailPage"
-             Title="NewsDetailPage">
+             Title="{Binding Title}">
     <ScrollView>
         <StackLayout Padding="20" Spacing="20">
             <Label Text="{Binding FeedItem.Title}" FontSize="Large" FontAttributes="Bold" />
             <Label Text="{Binding FeedItem.Source}" FontSize="Medium" />
             <Label Text="{Binding FeedItem.TimePublished}" FontSize="Small" />
-            <Image Source="{Binding FeedItem.BannerImage}" />
+            <Image Source="{Binding FeedItem.BannerImage}" HeightRequest="500"/>
             <Label Text="{Binding FeedItem.Summary}" FontSize="Medium" />
             <Button Text="Read Full Article"
                 FontSize="Medium"

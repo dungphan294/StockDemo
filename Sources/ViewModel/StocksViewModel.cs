@@ -10,7 +10,7 @@ public partial class StocksViewModel: BaseViewModel
     
     public StocksViewModel(AlphaVantageService alphaVantageService)
     {
-        Title = "Stock List";
+        Title = "Homepage";
         this._alphaVantageService = alphaVantageService; 
         Task.Run(async () => await GetStockAsync());
     }
@@ -33,8 +33,8 @@ public partial class StocksViewModel: BaseViewModel
         if(IsBusy) return;
         try
         {
-            IsBusy = true;
-            var stock = await _alphaVantageService.GetStockData();
+            IsBusy = true;  
+            var stock = await _alphaVantageService.GetAllStockData();
             if (Stocks.Count != 0)
                 Stocks.Clear();
 

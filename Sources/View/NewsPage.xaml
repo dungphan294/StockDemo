@@ -3,72 +3,72 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModel="clr-namespace:StockDemo.Sources.ViewModel"
              x:Class="StockDemo.Sources.View.NewsPage"
-             Title="NewsPage">
-    <Grid ColumnSpacing="5"  RowSpacing="5" Margin="20" BackgroundColor="LightGoldenrodYellow">
-    <Grid.RowDefinitions>
-        <RowDefinition/>
-        <RowDefinition Height="Auto"/>
-    </Grid.RowDefinitions>
-    <Grid.ColumnDefinitions>
-        <ColumnDefinition/>
-        <ColumnDefinition/>
-        <ColumnDefinition/>
-        <ColumnDefinition/>
-        <ColumnDefinition/>
-    </Grid.ColumnDefinitions>
-    <CollectionView Grid.ColumnSpan="5" ItemsSource="{Binding News}" SelectionMode="None">
-        <CollectionView.ItemTemplate>
-            <DataTemplate>
-                <VerticalStackLayout>
-                    <CollectionView ItemsSource="{Binding Feed}">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <Border Stroke="LightGoldenrodYellow"
+             Title="{Binding Title}">
+    <Grid ColumnSpacing="5"  RowSpacing="5" Margin="20" >
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" HorizontalOptions="FillAndExpand"  VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="5"/>
+        <CollectionView Grid.ColumnSpan="5" ItemsSource="{Binding News}" SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <VerticalStackLayout>
+                        <CollectionView ItemsSource="{Binding Feed}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border 
     StrokeThickness="4"
-    Background="Beige"
     Padding="16,8"
     HorizontalOptions="Center">
-                                    <Border.StrokeShape>
-                                        <RoundRectangle CornerRadius="20" />
-                                    </Border.StrokeShape>
-                                    <Grid ColumnSpacing="10">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
-                                        </Grid.ColumnDefinitions>
-                                        <Image Source="{Binding BannerImage}" WidthRequest="250" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center"/>
-                                        <Label Text="{Binding Source}" Grid.Row="0"  FontSize="Subtitle" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center"/>
-                                        <Label Text="{Binding Title}" Grid.Row="1"  FontSize="Title" Grid.Column="1"  Grid.ColumnSpan="3" HorizontalOptions="Start" VerticalOptions="Center"/>
-                                        <CollectionView ItemsSource="{Binding Author}" Grid.Row="2"   Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center">
-                                            <CollectionView.ItemTemplate>
-                                                <DataTemplate>
-                                                    <HorizontalStackLayout>
-                                                        <Label Text="{Binding .}" />
-                                                    </HorizontalStackLayout>
-                                                </DataTemplate>
-                                            </CollectionView.ItemTemplate>
-                                        </CollectionView>
-                                        <Grid.GestureRecognizers>
-                                            <TapGestureRecognizer CommandParameter="{Binding .}"
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="20" />
+                                        </Border.StrokeShape>
+                                        <Grid ColumnSpacing="10">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Source="{Binding BannerImage}" WidthRequest="250" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                            <Label Text="{Binding Source}" Grid.Row="0"  FontSize="Subtitle" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center"/>
+                                            <Label Text="{Binding Title}" Grid.Row="1"  FontSize="Title" Grid.Column="1"  Grid.ColumnSpan="3" HorizontalOptions="Start" VerticalOptions="Center"/>
+                                            <CollectionView ItemsSource="{Binding Author}" Grid.Row="2"   Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center">
+                                                <CollectionView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <HorizontalStackLayout>
+                                                            <Label Text="{Binding .}" />
+                                                        </HorizontalStackLayout>
+                                                    </DataTemplate>
+                                                </CollectionView.ItemTemplate>
+                                            </CollectionView>
+                                            <Grid.GestureRecognizers>
+                                                <TapGestureRecognizer CommandParameter="{Binding .}"
                       Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:NewsViewModel}}, Path=GoToDetailCommand}"/>
-                                        </Grid.GestureRecognizers>
-                                    </Grid>
-                                    
-                                </Border>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </VerticalStackLayout>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
-    <Button Text="Get News" Grid.Row="1" Margin="8" Command="{Binding GetNewsCommand}" IsEnabled="{Binding IsNotBusy}"/>
-    <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" HorizontalOptions="FillAndExpand"  VerticalOptions="CenterAndExpand" Grid.RowSpan="2" Grid.ColumnSpan="5"/>
-</Grid>
+                                            </Grid.GestureRecognizers>
+                                        </Grid>
+
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Button Text="Load News" Grid.Row="1" Margin="8" Command="{Binding GetNewsCommand}" IsEnabled="{Binding IsNotBusy}"/>
+
+    </Grid>
 </ContentPage>
