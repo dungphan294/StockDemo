@@ -19,6 +19,13 @@ They are given below:
 - LiveChartsCore.SkiaSharpView.Maui
 - Microsoft.NET.ILLink.Tasks
 
+The App is best viewed as a Windows application. It is
+compatible with Android devices but a smooth user experience
+cannot be guaranteed.
+
+Furthermore, this App is built for Windows in light mode. Please ensure it is
+enabled for the best experience.
+
 ## Precautions
 
 ### Precautions for the whole project
