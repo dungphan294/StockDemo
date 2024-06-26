@@ -23,7 +23,8 @@
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="15" />
                     </Border.StrokeShape>
-                    <VerticalStackLayout>
+                    <VerticalStackLayout> 
+                        <!--Aritra Edit this-->
                         <Label 
                         Text="{Binding StockDetail.CompanyInfo.Symbol}"
                         VerticalOptions="Center" 
