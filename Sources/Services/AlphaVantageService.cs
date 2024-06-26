@@ -17,9 +17,7 @@ public class AlphaVantageService : IAlphaVantageService
 
     List<Stock> StockList = new();
     List<News> NewsList = new();
-
-
-
+    
     public async Task<List<Stock>> GetStockData()
     {
         if (StockList.Count > 0) return StockList;
