@@ -5,79 +5,92 @@
              xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
              x:Class="StockDemo.Sources.View.StockDetailPage"
              Title="StockDetailPage">
-        <Grid RowSpacing="10" ColumnSpacing="10" Margin="20" Padding="5">
-            <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <lvc:CartesianChart Grid.Row="0" Grid.Column="0"
+    <ScrollView>
+        <VerticalStackLayout Padding="20">
+            <lvc:CartesianChart
                 Series="{Binding Series}"
                 XAxes="{Binding XAxes}"
-            ZoomMode="X">
-            </lvc:CartesianChart>
-            <VerticalStackLayout Grid.Row="1"  >
-                <Border Padding="20">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="15" />
-                    </Border.StrokeShape>
-                    <VerticalStackLayout> 
-                        <!--Aritra Edit this-->
-                        <Label 
+                ZoomMode="X"
+                HeightRequest="300" />
+
+            <Border Padding="20" Margin="0,10,0,0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="15" />
+                </Border.StrokeShape>
+                <VerticalStackLayout>
+                    <Label 
                         Text="{Binding StockDetail.CompanyInfo.Symbol}"
                         VerticalOptions="Center" 
                         HorizontalOptions="Start"
                         FontSize="Large"
                         FontAttributes="Bold" />
-                        <Label 
-                        Text="{Binding StockDetail.CompanyInfo.AssetType}"
-                        VerticalOptions="Center" 
-                        HorizontalOptions="Start"
-                        />
-                        <Label 
-                        Text="{Binding StockDetail.CompanyInfo.Name}"
-                        VerticalOptions="Center" 
-                        HorizontalOptions="Start"
-                         />
-                        <Label 
-                        Text="{Binding StockDetail.CompanyInfo.Description}"
-                        VerticalOptions="Center" 
-                        HorizontalOptions="Start"
-                        />
-                        <Label 
- Text="{Binding StockDetail.CompanyInfo.CIK}"
- VerticalOptions="Center" 
- HorizontalOptions="Start"
- />
-                        <Label 
-Text="{Binding StockDetail.CompanyInfo.Currency}"
-VerticalOptions="Center" 
-HorizontalOptions="Start"
-/>
-                        <Label 
-Text="{Binding StockDetail.CompanyInfo.Country}"
-VerticalOptions="Center" 
-HorizontalOptions="Start"
-/>
-                        <Label 
-Text="{Binding StockDetail.CompanyInfo.Sector}"
-VerticalOptions="Center" 
-HorizontalOptions="Start"
-/>
-                        <Label 
-Text="{Binding StockDetail.CompanyInfo.Industry}"
-VerticalOptions="Center" 
-HorizontalOptions="Start"
-/>
-                        <Label 
-Text="{Binding StockDetail.CompanyInfo.Address}"
-VerticalOptions="Center" 
-HorizontalOptions="Start"
-/>
-                    </VerticalStackLayout>
-                </Border>
-            </VerticalStackLayout>
-        </Grid>
+                    <Slider x:Name="slider"/>
+                    <Label VerticalOptions="Center" HorizontalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Asset Type: " FontAttributes="Bold"/>
+                                <Span Text="{Binding StockDetail.CompanyInfo.AssetType}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label VerticalOptions="Center" HorizontalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Company: " FontAttributes="Bold"/>
+                                <Span Text="{Binding StockDetail.CompanyInfo.Name}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label VerticalOptions="Center" HorizontalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Description: " FontAttributes="Bold"/>
+                                <Span Text="{Binding StockDetail.CompanyInfo.Description}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label VerticalOptions="Center" HorizontalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Currency: " FontAttributes="Bold"/>
+                                <Span Text="{Binding StockDetail.CompanyInfo.Currency}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label VerticalOptions="Center" HorizontalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Country: " FontAttributes="Bold"/>
+                                <Span Text="{Binding StockDetail.CompanyInfo.Country}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label VerticalOptions="Center" HorizontalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Sector: " FontAttributes="Bold"/>
+                                <Span Text="{Binding StockDetail.CompanyInfo.Sector}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label VerticalOptions="Center" HorizontalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Industry: " FontAttributes="Bold"/>
+                                <Span Text="{Binding StockDetail.CompanyInfo.Industry}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label VerticalOptions="Center" HorizontalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Address: " FontAttributes="Bold"/>
+                                <Span Text="{Binding StockDetail.CompanyInfo.Address}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
