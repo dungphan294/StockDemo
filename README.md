@@ -5,7 +5,7 @@ retrieving app.
 
 ### Developers
 - Aritra Biswas - 545606
-- Dung Phane - 546821
+- Dung Phan - 546821
 
 ## Instructions for Run
 
